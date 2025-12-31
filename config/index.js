@@ -14,13 +14,6 @@
             type : "email"
         },
         {
-            name : "userName",
-            label : "Username",
-            placeholder : "Enter your username",
-            componentType : "input",
-            type : "text"
-        },
-        {
             name : "password",
             label : "Password",
             placeholder : "Create a password",

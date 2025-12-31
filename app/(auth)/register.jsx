@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CommonForm from '../../components/common/form';
 import { registerFormControls } from '../../config';
 import { useState } from 'react';
 import { Link } from 'expo-router';
+import supabase from '../../config/supabaseClient';
 
 const initialState = {
     name: "",
     email : "",
-    userName: "",
     password : "",
 }
 
@@ -16,8 +16,18 @@ const Register = () => {
 const [ formData, setFormData ] = useState(initialState);
 const [ isLoading, setIsLoading ] = useState(false)
 
-const onSubmit = () => {
-
+const onSubmit =  async () => {
+ 
+   setIsLoading (true)
+    const { data: { session }, error } = await supabase.auth.signUp({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    })
+    console.log("Session: ", session);
+    if (error) Alert.alert(error.message)
+    if (!session) Alert.alert('Please check your inbox for email verification!')
+    setIsLoading (false)
 }
 
   return (

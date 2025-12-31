@@ -1,4 +1,4 @@
-import { Text, TextInput, View, TouchableOpacity } from "react-native";
+import { Text, TextInput, View, TouchableOpacity, ActivityIndicator} from "react-native";
 
 const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText, isLoading, color }) => {
 
@@ -15,12 +15,12 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
-                      type={getControlItem.type}
+                      type={"text"}
                       value={value}
                       required
-                      onChange={ event => setFormData({
+                      onChangeText={ text => setFormData({
                         ...formData,
-                        [getControlItem.name] : event.target.value
+                        [getControlItem.name] : text
                       })}
                     />
                   );
@@ -31,11 +31,12 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
+                      type={"text"}
                       value={value}
                       required
-                      onChange={ event => setFormData({
+                      onChangeText={ text => setFormData({
                         ...formData,
-                        [getControlItem.name] : event.target.value
+                        [getControlItem.name] : text
                       })}
                     />
                   );
@@ -46,12 +47,12 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
-                      type={getControlItem.type}
+                      type={"text"}
                       value={value}
                       required
-                      onChange={ event => setFormData({
+                      onChangeText={ text => setFormData({
                         ...formData,
-                        [getControlItem.name] : event.target.value
+                        [getControlItem.name] : text
                       })}
                     />
                   );
@@ -71,6 +72,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
         }
       </View>
       <TouchableOpacity 
+        onPress={onSubmit}
         style={{
           marginTop:"5%", 
           width:"100%",
@@ -78,7 +80,10 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
           paddingVertical:"3%",
           borderRadius:5
         }}>
-         <Text style={{alignSelf:"center", color:"#ffffff"}}>{buttonText || "Submit"}</Text>
+          {isLoading 
+            ? <ActivityIndicator size="small" color="#ffffff"/> 
+            : <Text style={{alignSelf:"center", color:"#ffffff"}}>{buttonText || "Submit"}</Text>
+          }
       </TouchableOpacity>
     </>
   )
