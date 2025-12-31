@@ -76,7 +76,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
           width:"100%",
           backgroundColor:"#2ec6dd",
           paddingVertical:"3%",
-          borderRadius:10
+          borderRadius:5
         }}>
          <Text style={{alignSelf:"center", color:"#ffffff"}}>{buttonText || "Submit"}</Text>
       </TouchableOpacity>

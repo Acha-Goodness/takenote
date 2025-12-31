@@ -1,14 +1,52 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import CommonForm from '../../components/common/form';
+import { loginFormControls } from '../../config';
+import { useState } from 'react';
+import { Link } from 'expo-router';
 
-const login = () => {
+const initialState = {
+    email : "",
+    password : "",
+}
+
+const Login = () => {
+const [ formData, setFormData ] = useState(initialState);
+const [ isLoading, setIsLoading ] = useState(false)
+
+const onSubmit = () => {
+
+}
+
   return (
-    <View>
-      <Text>login</Text>
-    </View>
+    <SafeAreaView style={styles.loginWrap}>
+      <Text 
+        style={{color: "#2ec6dd", textAlign:"center", fontSize:20, fontWeight:700, marginBottom:"5%"}}>Sign In</Text>
+      <CommonForm
+          formControls={loginFormControls}
+          buttonText={"Sign In"}
+          formData={formData}
+          setFormData={setFormData}
+          isLoading={isLoading}
+          onSubmit={onSubmit}
+      />
+      <View style={{flexDirection:"row", marginTop:"4%", justifyContent:"space-between", alignItems:"center", paddingHorizontal:"2%"}}>
+         <Text style={{color:"#ffffff"}}>You don't have an account?</Text>
+         <Link href="/register">
+          <Text style={{color:"#ffffff", fontWeight:600, fontSize:16}}>Sign Up</Text>
+         </Link>
+      </View>
+    </SafeAreaView>
   )
 }
 
-export default login
+export default Login
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+loginWrap: {
+    flex: 1,
+    backgroundColor: "#000000ff",
+    paddingHorizontal:"20%",
+    justifyContent:"center"
+  },
+})
