@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CommonForm from '../../components/common/form';
 import { loginFormControls } from '../../config';
 import { useState } from 'react';
 import { Link } from 'expo-router';
+import supabase from '../../config/supabaseClient';
+import { router } from 'expo-router';
 
 const initialState = {
     email : "",
@@ -14,8 +16,24 @@ const Login = () => {
 const [ formData, setFormData ] = useState(initialState);
 const [ isLoading, setIsLoading ] = useState(false)
 
-const onSubmit = () => {
-
+const signIn = async () => {
+  setIsLoading (true)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    })
+   
+    if (error) {
+      Alert.alert(error.message)
+      setIsLoading (false)
+      return;
+    }
+    
+    if (data) {
+      Alert.alert('Login successfull')
+      router.push("/notes");
+    } 
+    setIsLoading (false)
 }
 
   return (
@@ -28,7 +46,7 @@ const onSubmit = () => {
           formData={formData}
           setFormData={setFormData}
           isLoading={isLoading}
-          onSubmit={onSubmit}
+          onSubmit={signIn}
       />
       <View style={{flexDirection:"row", marginTop:"4%", justifyContent:"space-between", alignItems:"center", paddingHorizontal:"2%"}}>
          <Text style={{color:"#ffffff"}}>You don't have an account?</Text>

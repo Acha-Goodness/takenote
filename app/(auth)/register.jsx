@@ -5,6 +5,7 @@ import { registerFormControls } from '../../config';
 import { useState } from 'react';
 import { Link } from 'expo-router';
 import supabase from '../../config/supabaseClient';
+import { router } from 'expo-router';
 
 const initialState = {
     name: "",
@@ -16,17 +17,30 @@ const Register = () => {
 const [ formData, setFormData ] = useState(initialState);
 const [ isLoading, setIsLoading ] = useState(false)
 
-const onSubmit =  async () => {
- 
+
+const signUp =  async () => {
    setIsLoading (true)
     const { data, error } = await supabase.auth.signUp({
-      name: formData.name,
       email: formData.email,
       password: formData.password,
+      options: {
+        data: {
+          name: formData.name
+        }
+      }
     })
-    console.log("Data: ", data);
-    if (error) Alert.alert(error.message)
-    if (data) Alert.alert('Please check your inbox for email verification!')
+  
+    if (error){
+      Alert.alert(error.message)
+      setIsLoading (false)
+      return;
+    }
+    
+    if (data) {
+      Alert.alert('Please check your inbox for email verification!')
+      router.push("/notes");
+    } 
+   
     setIsLoading (false)
 }
 
@@ -40,7 +54,7 @@ const onSubmit =  async () => {
           formData={formData}
           setFormData={setFormData}
           isLoading={isLoading}
-          onSubmit={onSubmit}
+          onSubmit={signUp}
       />
       <View style={{flexDirection:"row", marginTop:"4%", justifyContent:"space-between", alignItems:"center", paddingHorizontal:"2%"}}>
          <Text style={{color:"#ffffff"}}>You already have an account?</Text>

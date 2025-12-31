@@ -5,19 +5,18 @@ import { Link, router } from 'expo-router';
 
 const Landing = () => {
   const start = () => {
-    router.push("/register");
+    router.push("/login");
   }
 
   return (
     <View style={styles.container}>
         <View style={{marginBottom: "30%"}}>
             <Image source={logo} style={styles.logo}/>
-            <Text style={styles.appname}>Take Note</Text>
+            <Text style={styles.appname}>Nice Note</Text>
         </View>
         <TouchableOpacity style={styles.btn} onPress={start}>
             <Text style={styles.btnText}>start</Text>
         </TouchableOpacity>
-        <Link style={{color:"white"}} href="/notes">Main App</Link>
     </View>
   )
 }

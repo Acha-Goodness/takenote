@@ -15,6 +15,11 @@
     },
     "ios": {
       "bundleIdentifier": "com.anonymous.notes-app"
+    },
+    "expo": {
+      "android": {
+        "permissions": ["INTERNET"]
+      }
     }
   }
 }
