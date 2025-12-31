@@ -57,7 +57,12 @@ const DashLayout = () => {
                     />
                 )}}
             />
+            <Tabs.Screen
+                name="viewNote"
+                options={{ href: null }}
+            />
         </Tabs>
+     
        </>
      )
 }
