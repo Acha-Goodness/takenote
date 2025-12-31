@@ -30,6 +30,7 @@ const CreateNote = () => {
     const { data, error } = await supabase
     .from("notes")
     .insert([{ title, content }])
+    .select()
 
     if(error){
       console.log(error)
@@ -37,12 +38,14 @@ const CreateNote = () => {
       setIsLoading(false)
     }
 
-    console.log(data);
-    setIsLoading(false)
-    setFormError(null)
-    setFormData(initialState)
-    setIsLoading(false)
-    router.push("/notes");
+    if(data){
+      console.log(data);
+      setIsLoading(false)
+      setFormError(null)
+      setFormData(initialState)
+      setIsLoading(false)
+      router.push("/notes");
+    }
     
   }
   

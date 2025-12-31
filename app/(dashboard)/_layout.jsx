@@ -1,4 +1,4 @@
-import { Ionicons, Feather } from "@expo/vector-icons";
+import { Ionicons, Feather, Foundation } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Platform, View } from 'react-native';
@@ -30,9 +30,9 @@ const DashLayout = () => {
             <Tabs.Screen 
                 name="notes"
                 options={{ title: "Notes", tabBarIcon: ({ focused}) => (
-                    <Ionicons
+                    <Foundation
                         size={24}
-                        name={ focused ? "home" : "home-outline"}
+                        name={ focused ? "clipboard-notes" : "clipboard-notes"}
                         color={focused ? "#000000" : "#ffffff"}
                     />
                 )}}
@@ -40,9 +40,9 @@ const DashLayout = () => {
             <Tabs.Screen
                 name="createNote"
                 options={{ title: "Create", tabBarIcon: ({ focused }) => (
-                    <Feather
+                    <Ionicons
                         size={24}
-                        name={ focused ? "upload-cloud" : "upload-cloud"}
+                        name={ focused ? "create" : "create-outline"}
                         color={focused ? "#000000" : "#ffffff"}
                     />
                 )}}
@@ -52,7 +52,7 @@ const DashLayout = () => {
                 options={{ title: "Profile", tabBarIcon: ({ focused }) => (
                     <Ionicons
                         size={24}
-                        name={ focused ? "cart" : "cart-outline"}
+                        name={ focused ? "person" : "person-outline"}
                         color={focused ? "#000000" : "#ffffff"}
                     />
                 )}}
