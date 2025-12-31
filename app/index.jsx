@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     appname: {
         alignSelf:"center",
-        color: "#ffffff",
+        color: "#ffffffff",
         fontSize:30,
         fontWeight: 900
     },
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#000000",
         paddingHorizontal:"20%",
         paddingVertical:"2%",
-        borderColor:"#4fcdffff",
+        borderColor:"#2ec6dd",
         borderWidth:2,
         borderRadius:10
     },

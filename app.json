@@ -4,6 +4,12 @@
     "slug": "notes_app",
     "scheme": "notesapp",
     "version": "1.0.0",
+    "icon": "./assets/logo.png",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00008B"
+    },
     "android": {
       "package": "com.anonymous.notes_app"
     },

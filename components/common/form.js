@@ -1,10 +1,4 @@
-
-import { Input } from '../ui/input';
-import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '../ui/select';
-import { Textarea } from '../ui/textarea';
-import { Label } from '../ui/label';
-import { Button } from '../ui/button';
-import { MoonLoader } from 'react-spinners';
+import { Text, TextInput, View, TouchableOpacity } from "react-native";
 
 const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText, isLoading, color }) => {
 
@@ -16,8 +10,8 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
     switch (getControlItem.componentType){
       case "input":
         element = (
-                    <Input
-                      className={`${buttonText === "Verify Otp" && "text-center"}`}
+                    <TextInput
+                      style={{backgroundColor:"#ffffffff", width:"100%", paddingVertical:"3%", paddingHorizontal:"2%", borderRadius:5}}
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
@@ -31,28 +25,9 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                     />
                   );
       break;
-      case "select":
-        element = (
-                    <Select onValueChange={(value) => setFormData({
-                      ...formData,
-                      [getControlItem.name] : value
-                    })} value={value}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={getControlItem.label}/>
-                      </SelectTrigger>
-                      <SelectContent className="bg-white">
-                        {
-                            getControlItem.options && 
-                            getControlItem.options.length > 0 ?
-                            getControlItem.options.map(optionItem => <SelectItem key={optionItem.id} value={optionItem.id}>{optionItem.label}</SelectItem>) : null
-                        }
-                      </SelectContent>
-                    </Select>
-                  );  
-      break;
       case "textarea":
         element = (
-                    <Textarea
+                    <TextInput
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
@@ -67,7 +42,7 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
       break;
       default:
         element = (
-                    <Input
+                    <TextInput
                       name={getControlItem.name}
                       placeholder={getControlItem.placeholder}
                       id={getControlItem.name}
@@ -86,18 +61,26 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className={`${buttonText === "Verify Otp" ? "grid grid-cols-4 gap-6 items-end w-full" : "flex flex-col gap-3"}`}>
+    <>
+      <View style={{flexDirection:"row", flexWrap:"wrap", justifyContent:"flex-start", alignItems:"flex-end", width:"100%", gap: 24}}>
         {
           formControls.map((controlItem, index) => 
-          <div className={`grid w-full gap-1.5 ${buttonText === "Verify Otp" && "w-[50px]"}`} key={index}>
-            <Label className="mb-1">{controlItem.Label}</Label>
+          <View style={{flexDirection:"row", flexWrap:"wrap", width:"100%", gap:6}} key={index}>
             {renderInputsByComponentType(controlItem)}
-          </div>)
+          </View>)
         }
-      </div>
-      <Button type="submit" className={`mt-5 w-full ${color ? "bg-[#5F2780]" : "bg-[#D4AF37]"} text-white ${buttonText === "Verify Otp" && "w-full"}`}>{isLoading && <MoonLoader color="#ffffff" size={20} />} {buttonText || "Submit"}</Button>
-    </form>
+      </View>
+      <TouchableOpacity 
+        style={{
+          marginTop:"5%", 
+          width:"100%",
+          backgroundColor:"#2ec6dd",
+          paddingVertical:"3%",
+          borderRadius:10
+        }}>
+         <Text style={{alignSelf:"center", color:"#ffffff"}}>{buttonText || "Submit"}</Text>
+      </TouchableOpacity>
+    </>
   )
 }
 
