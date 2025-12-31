@@ -38,8 +38,7 @@ const signIn = async () => {
 
   return (
     <SafeAreaView style={styles.loginWrap}>
-      <Text 
-        style={{color: "#2ec6dd", textAlign:"center", fontSize:20, fontWeight:700, marginBottom:"5%"}}>Sign In</Text>
+      <Text style={{color: "#2ec6dd", textAlign:"center", fontSize:20, fontWeight:700, marginBottom:"5%"}}>Sign In</Text>
       <CommonForm
           formControls={loginFormControls}
           buttonText={"Sign In"}

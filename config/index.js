@@ -38,3 +38,20 @@
             type : "password"
         }
     ]
+
+    export const createFormControls = [
+        {
+            name : "title",
+            label : "Title",
+            placeholder : "Enter note title",
+            componentType : "input",
+            type : "text"
+        },
+        {
+            name : "content",
+            label : "Content",
+            placeholder : "Enter note Content",
+            componentType : "input",
+            type : "textarea"
+        }
+    ]

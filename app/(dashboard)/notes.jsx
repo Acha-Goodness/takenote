@@ -26,23 +26,23 @@ const Notes = () => {
     }
 
     fetchNotes();
-  }, [])
+  }, [notes])
 
   if(notes) console.log(notes)
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{color:"white"}}>notes</Text>
-      <View>
+      <Text style={{color:"#2ec6dd", alignSelf:"center", fontWeight:"900", fontSize:20 }}>Notes</Text>
+      <View style={{marginTop:"2%"}}>
         {fetchError && (<Text>{fetchError}</Text>)}
         {notes && (
           <FlatList
             data={notes}
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => (
-              <View style={{backgroundColor:"green"}}>
-                  <Text style={{color: "#ffffff"}}>{item.title}</Text>
-                  <Text style={{color: "#ffffff"}}>{item.content}</Text>
+              <View style={{backgroundColor:"#6e6e6eff", padding:"3%",  borderRadius:5, marginTop:"3%"}}>
+                  <Text style={{color: "#ffffff", fontSize:16, fontWeight:500}}>{item.title}</Text>
+                  <Text style={{color: "#ffffff", marginTop:"2%"}}>{item.content}</Text>
               </View>
             )}
             ItemSeparatorComponent={() => <View style={{ width: "3%" }} />}
@@ -58,6 +58,6 @@ export default Notes
 const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor:"#000000"
+      backgroundColor:"#000000ff"
     },
 })
