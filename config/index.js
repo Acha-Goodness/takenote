@@ -50,8 +50,8 @@
         {
             name : "content",
             label : "Content",
-            placeholder : "Enter note Content",
-            componentType : "input",
-            type : "textarea"
+            placeholder : "Write your note...",
+            componentType : "textarea",
+            type : "text"
         }
     ]

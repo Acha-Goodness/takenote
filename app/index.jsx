@@ -1,9 +1,32 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import logo from "../assets/logo.png";
 import { Link, router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import supabase from '../config/supabaseClient';
 
 
 const Landing = () => {
+  const [ user, setUser ] = useState(null)
+  const [ loading, setLoading ] = useState(true)
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user ?? null)
+      setLoading(false)
+    })
+
+    // Listen for auth changes
+    const { data: authListener } =
+      supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null)
+      })
+
+    return () => {
+      authListener.subscription.unsubscribe()
+    }
+  }, [])
+
   const start = () => {
     router.push("/login");
   }

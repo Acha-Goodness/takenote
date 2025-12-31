@@ -28,8 +28,6 @@ const Notes = () => {
     fetchNotes();
   }, [notes])
 
-  if(notes) console.log(notes)
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={{color:"#2ec6dd", alignSelf:"center", fontWeight:"900", fontSize:20 }}>Notes</Text>

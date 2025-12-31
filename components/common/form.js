@@ -34,6 +34,15 @@ const CommonForm = ({ formControls, formData, setFormData, onSubmit, buttonText,
                       type={"text"}
                       value={value}
                       required
+                      multiline
+                      style={{
+                        backgroundColor:"#ffffff",
+                        borderRadius:5,
+                        width:"100%",
+                        padding: 12,
+                        minHeight: 120,
+                        textAlignVertical: 'top', // IMPORTANT for Android
+                      }}
                       onChangeText={ text => setFormData({
                         ...formData,
                         [getControlItem.name] : text
