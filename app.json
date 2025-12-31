@@ -2,6 +2,13 @@
   "expo": {
     "name": "notes_app",
     "slug": "notes_app",
-    "version": "1.0.0"
+    "scheme": "notesapp",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.anonymous.notes_app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.notes-app"
+    }
   }
 }
