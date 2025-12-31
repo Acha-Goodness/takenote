@@ -1,14 +1,47 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+  export const registerFormControls = [
+        {
+            name : "name",
+            label : "Name",
+            placeholder : "Enter your name",
+            componentType : "input",
+            type : "text"
+        },
+        {
+            name : "email",
+            label : "Email",
+            placeholder : "Enter your email",
+            componentType : "input",
+            type : "email"
+        },
+        {
+            name : "userName",
+            label : "Username",
+            placeholder : "Enter your username",
+            componentType : "input",
+            type : "text"
+        },
+        {
+            name : "password",
+            label : "Password",
+            placeholder : "Create a password",
+            componentType : "input",
+            type : "password"
+        }
+    ]
 
-const index = () => {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  )
-}
-
-export default index
-
-const styles = StyleSheet.create({})
+    export const loginFormControls = [
+        {
+            name : "email",
+            label : "Email",
+            placeholder : "Enter your email",
+            componentType : "input",
+            type : "email"
+        },
+        {
+            name : "password",
+            label : "Password",
+            placeholder : "Enter your password",
+            componentType : "input",
+            type : "password"
+        }
+    ]
