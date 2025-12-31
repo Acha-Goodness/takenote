@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import logo from "../assets/logo.png";
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 
 const Landing = () => {
@@ -17,6 +17,7 @@ const Landing = () => {
         <TouchableOpacity style={styles.btn} onPress={start}>
             <Text style={styles.btnText}>start</Text>
         </TouchableOpacity>
+        <Link style={{color:"white"}} href="/notes">Main App</Link>
     </View>
   )
 }
