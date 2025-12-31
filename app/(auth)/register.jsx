@@ -19,14 +19,14 @@ const [ isLoading, setIsLoading ] = useState(false)
 const onSubmit =  async () => {
  
    setIsLoading (true)
-    const { data: { session }, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       name: formData.name,
       email: formData.email,
       password: formData.password,
     })
-    console.log("Session: ", session);
+    console.log("Data: ", data);
     if (error) Alert.alert(error.message)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
+    if (data) Alert.alert('Please check your inbox for email verification!')
     setIsLoading (false)
 }
 

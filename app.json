@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#00008B"
+      "backgroundColor": "#000000"
     },
     "android": {
       "package": "com.anonymous.notes_app"
