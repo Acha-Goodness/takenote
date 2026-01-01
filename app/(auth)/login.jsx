@@ -15,10 +15,17 @@ const initialState = {
 
 const Login = () => {
 const [ formData, setFormData ] = useState(initialState);
-const [ isLoading, setIsLoading ] = useState(false)
+const [ isLoading, setIsLoading ] = useState(false);
+const [ formError, setFormError ] = useState(null)
 
 const signIn = async () => {
-  setIsLoading (true)
+   if(!formData.email || !formData.password){
+      setFormError("Please Fill in all fields")
+      return;
+   }
+
+    setIsLoading (true)
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email: formData.email,
       password: formData.password,
@@ -55,6 +62,7 @@ const signIn = async () => {
           <Text style={{color:"#ffffff", fontWeight:600, fontSize:16}}>Sign Up</Text>
          </Link>
       </View>
+      <Text style={{color:"red", marginTop:10, marginLeft:10}}>{formError}</Text>
     </SafeAreaView>
   )
 }

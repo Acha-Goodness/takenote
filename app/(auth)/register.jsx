@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link } from 'expo-router';
 import supabase from '../../config/supabaseClient';
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
     name: "",
@@ -15,19 +16,22 @@ const initialState = {
 
 const Register = () => {
 const [ formData, setFormData ] = useState(initialState);
-const [ isLoading, setIsLoading ] = useState(false)
+const [ isLoading, setIsLoading ] = useState(false);
+  const [ formError, setFormError ] = useState(null)
 
 
 const signUp =  async () => {
+
+   if(!formData.name || !formData.email || !formData.password){
+      setFormError("Please Fill in all fields")
+      return;
+   }
+
    setIsLoading (true)
-    const { data, error } = await supabase.auth.signUp({
+
+   const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
-      options: {
-        data: {
-          name: formData.name
-        }
-      }
     })
   
     if (error){
@@ -38,7 +42,7 @@ const signUp =  async () => {
     
     if (data) {
       Alert.alert('Please check your inbox for email verification!')
-      router.push("/notes");
+      router.push("/login");
     } 
    
     setIsLoading (false)
@@ -62,6 +66,7 @@ const signUp =  async () => {
           <Text style={{color:"#ffffff", fontWeight:600, fontSize:16}}>Sign In</Text>
          </Link>
       </View>
+      <Text style={{color:"red", marginTop:10, marginLeft:10}}>{formError}</Text>
     </SafeAreaView>
   )
 }
