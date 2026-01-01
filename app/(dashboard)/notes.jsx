@@ -45,14 +45,11 @@ const Notes = () => {
   }
 
   const deleteNote = async (id) => {
-    console.log("ID: ", id)
     const { data, error } = await supabase
     .from("notes")
     .delete()
     .eq("id", id)
     .select()
-    
-    console.log("Deleted Data: ", data)
   }
 
   return (
@@ -70,6 +67,9 @@ const Notes = () => {
                   <View style={{width:"85%"}}>
                       <Text style={{color: "#ffffff", fontSize:16, fontWeight:500}}>{item.title}</Text>
                       <Text style={{color: "#ffffff", marginTop:"2%"}}>{item.content}</Text>
+                      <View style={{marginTop:"4%"}}>
+                        <Text style={{color:"#dbdbdbff", fontSize:13}}>{new Date(item.created_at).toLocaleString()}</Text>
+                      </View>
                   </View>
                 </TouchableOpacity>
                 <View>
@@ -77,7 +77,7 @@ const Notes = () => {
                     <Entypo name="trash" size={20} color="#2596be" />
                   </Pressable>
                   <Pressable onPress={() => editNote(item)}>
-                    <Entypo name="edit" size={20} color="#2596be" style={{marginTop:10}}/>
+                    <Entypo name="edit" size={20} color="#2596be" style={{marginTop:20}}/>
                   </Pressable>
                 </View>
               </View>

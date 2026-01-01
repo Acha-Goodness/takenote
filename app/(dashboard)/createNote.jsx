@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createFormControls } from '../../config';
@@ -18,7 +18,16 @@ const CreateNote = () => {
   const [ formError, setFormError ] = useState(null)
 
   const params = useLocalSearchParams();
-  // if(params) setFormData(params)
+  // console.log("PARAM: ", params)
+
+  useEffect(() => {
+    if (!params) return;
+
+    setFormData({
+      title: params.title ?? '',
+      content: params.content ?? '',
+    });
+  }, []);
 
   const createNote = async () => {
     const title = formData.title
@@ -50,7 +59,20 @@ const CreateNote = () => {
       setIsLoading(false)
       router.push("/notes");
     }
-    
+  }
+
+  const editNote = async () => {
+    const { error } = await supabase
+    .from('notes')
+    .update({
+      title: formData.title,
+      content: formData.content,
+    })
+    .eq('id', params.id);
+
+    if (!error) {
+      router.back();
+    }
   }
   
   return (
@@ -59,11 +81,11 @@ const CreateNote = () => {
 
       <CommonForm
         formControls={createFormControls}
-        buttonText={"Create Note"}
+        buttonText={!params ? "Create Note" : "Edit Note"}
         formData={formData}
         setFormData={setFormData}
         isLoading={isLoading}
-        onSubmit={createNote}
+        onSubmit={!params ? createNote : editNote}
       />
 
       {formError && <Text style={{color:"#df2627", marginTop:"2%"}}>{formError}</Text>}
