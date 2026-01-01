@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createFormControls } from '../../config';
@@ -6,6 +6,7 @@ import CommonForm from '../../components/common/form';
 import supabase from '../../config/supabaseClient';
 import { router } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router'
+import { useFocusEffect } from 'expo-router'
 
 const initialState = {
     title : "",
@@ -16,20 +17,24 @@ const CreateNote = () => {
   const [ formData, setFormData ] = useState(initialState);
   const [ isLoading, setIsLoading ] = useState(false)
   const [ formError, setFormError ] = useState(null)
+  const [ isEdit, setIsEdit ] = useState(false)
 
-  const params = useLocalSearchParams();
-  // console.log("PARAM: ", params)
+  const { note } = useLocalSearchParams();
+  const parsedNote = note ? JSON.parse(note) : null;
 
-  useEffect(() => {
-    if (!params) return;
+   useEffect(() => {
+    if (!parsedNote) return;
 
     setFormData({
-      title: params.title ?? '',
-      content: params.content ?? '',
+      title: parsedNote.title ?? '',
+      content: parsedNote.content ?? '',
     });
-  }, []);
+    setIsEdit(Boolean(parsedNote?.id));
+  }, [note]);
 
   const createNote = async () => {
+    if(formError) setFormError(null)
+
     const title = formData.title
     const content = formData.content
 
@@ -42,12 +47,15 @@ const CreateNote = () => {
 
     const { data, error } = await supabase
     .from("notes")
-    .insert([{ title, content }])
+    .insert([{ 
+      title, 
+      content, 
+    }])
     .select()
 
     if(error){
       console.log(error)
-      setFormError(error)
+      setFormError(error.message)
       setIsLoading(false)
     }
 
@@ -68,12 +76,26 @@ const CreateNote = () => {
       title: formData.title,
       content: formData.content,
     })
-    .eq('id', params.id);
+    .eq('id', parsedNote?.id);
+    setFormData(initialState);
+    setIsEdit(false)
 
     if (!error) {
       router.back();
     }
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      // screen focused
+
+      return () => {
+        // screen unfocused (tab changed)
+        setFormData(initialState)
+        setIsEdit(false)
+      }
+    }, [])
+  )
   
   return (
     <SafeAreaView style={styles.container}>
@@ -81,11 +103,11 @@ const CreateNote = () => {
 
       <CommonForm
         formControls={createFormControls}
-        buttonText={!params ? "Create Note" : "Edit Note"}
+        buttonText={isEdit ? "Edit Note" : "Create Note"}
         formData={formData}
         setFormData={setFormData}
         isLoading={isLoading}
-        onSubmit={!params ? createNote : editNote}
+        onSubmit={isEdit ? editNote : createNote}
       />
 
       {formError && <Text style={{color:"#df2627", marginTop:"2%"}}>{formError}</Text>}

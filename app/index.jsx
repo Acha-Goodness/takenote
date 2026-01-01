@@ -1,14 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import logo from "../assets/logo.png";
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Landing = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const value = await AsyncStorage.getItem("access_token");
+        const value = await AsyncStorage.getItem("session");
         if (value !== null) {
           router.push("/notes")
         }

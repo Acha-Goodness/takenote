@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Link } from 'expo-router';
 import supabase from '../../config/supabaseClient';
 import { router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
     name: "",

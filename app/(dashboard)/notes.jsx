@@ -13,7 +13,7 @@ const Notes = () => {
     const fetchNotes = async () => {
       const { data, error } = await supabase
       .from("notes")
-      .select()
+      .select('*')
 
       if(error){
         setFetchError("Could not fetch notes")
@@ -40,7 +40,7 @@ const Notes = () => {
   const editNote = async (note) => {
     router.push({
       pathname: '/createNote',
-      params: note
+      params: {note : JSON.stringify(note)}
     })
   }
 
@@ -63,12 +63,12 @@ const Notes = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => (
               <View style={{backgroundColor:"#6e6e6eff", padding:"3%",  borderRadius:5, marginTop:"3%", flexDirection:"row", justifyContent:"space-between", alignItems:"center "}}>
-                <TouchableOpacity onPress={() => viewNote(item)}>
-                  <View style={{width:"85%"}}>
+                <TouchableOpacity onPress={() => viewNote(item)} style={{width:"85%"}}>
+                  <View>
                       <Text style={{color: "#ffffff", fontSize:16, fontWeight:500}}>{item.title}</Text>
                       <Text style={{color: "#ffffff", marginTop:"2%"}}>{item.content}</Text>
                       <View style={{marginTop:"4%"}}>
-                        <Text style={{color:"#dbdbdbff", fontSize:13}}>{new Date(item.created_at).toLocaleString()}</Text>
+                        <Text style={{color:"#dbdbdbff", fontSize:12}}>{new Date(item.created_at).toLocaleString()}</Text>
                       </View>
                   </View>
                 </TouchableOpacity>

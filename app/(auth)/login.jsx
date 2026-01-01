@@ -38,7 +38,7 @@ const signIn = async () => {
     }
     
     if (data) {
-      await AsyncStorage.setItem("access_token", JSON.stringify(data.session.access_token));
+      await AsyncStorage.setItem("session", JSON.stringify(data.session));
       Alert.alert('Login successfull')
       router.push("/notes");
     } 

@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 const Profile = () => {
 
   const logout = async () => {
-     await AsyncStorage.removeItem("access_token");
+     await AsyncStorage.removeItem("session");
      router.push("/")
   }
 
