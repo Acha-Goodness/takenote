@@ -16,22 +16,24 @@ const initialState = {
 
 const Register = () => {
 const [ formData, setFormData ] = useState(initialState);
-const [ isLoading, setIsLoading ] = useState(false);
-  const [ formError, setFormError ] = useState(null)
-
+const [ isLoading, setIsLoading ] = useState(false)
+const [ formError, setFormError ] = useState(null)
 
 const signUp =  async () => {
-
    if(!formData.name || !formData.email || !formData.password){
       setFormError("Please Fill in all fields")
       return;
    }
 
    setIsLoading (true)
-
-   const { data, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
+      options: {
+        data: {
+          name: formData.name
+        }
+      }
     })
   
     if (error){
