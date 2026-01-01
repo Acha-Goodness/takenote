@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link } from 'expo-router';
 import supabase from '../../config/supabaseClient';
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
     email : "",
@@ -30,6 +31,7 @@ const signIn = async () => {
     }
     
     if (data) {
+      await AsyncStorage.setItem("access_token", JSON.stringify(data.session.access_token));
       Alert.alert('Login successfull')
       router.push("/notes");
     } 

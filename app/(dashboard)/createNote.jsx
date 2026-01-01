@@ -5,6 +5,7 @@ import { createFormControls } from '../../config';
 import CommonForm from '../../components/common/form';
 import supabase from '../../config/supabaseClient';
 import { router } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router'
 
 const initialState = {
     title : "",
@@ -15,6 +16,9 @@ const CreateNote = () => {
   const [ formData, setFormData ] = useState(initialState);
   const [ isLoading, setIsLoading ] = useState(false)
   const [ formError, setFormError ] = useState(null)
+
+  const params = useLocalSearchParams();
+  // if(params) setFormData(params)
 
   const createNote = async () => {
     const title = formData.title

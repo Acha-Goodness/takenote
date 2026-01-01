@@ -37,6 +37,13 @@ const Notes = () => {
     })
   }
 
+  const editNote = async (note) => {
+    router.push({
+      pathname: '/createNote',
+      params: note
+    })
+  }
+
   const deleteNote = async (id) => {
     console.log("ID: ", id)
     const { data, error } = await supabase
@@ -69,7 +76,7 @@ const Notes = () => {
                   <Pressable onPress={() => deleteNote(item.id)}>
                     <Entypo name="trash" size={20} color="#2596be" />
                   </Pressable>
-                  <Pressable>
+                  <Pressable onPress={() => editNote(item)}>
                     <Entypo name="edit" size={20} color="#2596be" style={{marginTop:10}}/>
                   </Pressable>
                 </View>
