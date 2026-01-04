@@ -9,7 +9,7 @@ The app allows users to securely authenticate and manage their personal notes wi
 
 ### 🔐 Authentication
 when a user registers a confirmation email will be sent to the user's email, the user
-should click confrim to verify his email and go back to the app to login.
+should click confrim email to verify his/her email and go back to the app to login.
 
 - Sign Up with email and password
 - Log In for existing users
